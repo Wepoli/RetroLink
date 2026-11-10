@@ -4,7 +4,7 @@ import { signIn, useSession } from "next-auth/react";
 import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { Key, User, AlertCircle, ShieldAlert } from "lucide-react";
+import { Key, User, AlertCircle } from "lucide-react";
 
 function LoginForm() {
   const { data: session } = useSession();
@@ -93,7 +93,7 @@ function LoginForm() {
               value={usernameOrEmail}
               onChange={(e) => setUsernameOrEmail(e.target.value)}
               className="bg-white dark:bg-[#1a2530] text-slate-800 dark:text-slate-200 p-2 rounded border border-slate-400 dark:border-slate-600 focus:outline-none focus:ring-1 focus:ring-[#105289] w-full shadow-inner"
-              placeholder="e.g. ModeratorBob"
+              placeholder="Username or email"
               required
             />
           </div>
@@ -108,7 +108,6 @@ function LoginForm() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="bg-white dark:bg-[#1a2530] text-slate-800 dark:text-slate-200 p-2 rounded border border-slate-400 dark:border-slate-600 focus:outline-none focus:ring-1 focus:ring-[#105289] w-full shadow-inner"
-              placeholder="••••••••"
               required
             />
           </div>

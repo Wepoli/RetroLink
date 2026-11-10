@@ -4,6 +4,16 @@ import bcrypt from "bcryptjs";
 const prisma = new PrismaClient();
 
 async function main() {
+  if (process.env.SEED_DEMO_DATA !== "true") {
+    throw new Error("Set SEED_DEMO_DATA=true to confirm the destructive demo seed.");
+  }
+
+  const seedUserPassword = process.env.SEED_USER_PASSWORD;
+  if (!seedUserPassword || seedUserPassword.length < 12) {
+    throw new Error("Set SEED_USER_PASSWORD to a unique password of at least 12 characters.");
+  }
+
+  const passwordHash = await bcrypt.hash(seedUserPassword, 10);
   console.log("Seeding database with nostalgic 2010 items...");
 
   // Clean existing tables (in order of dependencies)
@@ -20,9 +30,6 @@ async function main() {
   await prisma.user.deleteMany();
 
   console.log("Cleared existing database tables.");
-
-  // Password for all seeded users
-  const passwordHash = await bcrypt.hash("password123", 10);
 
   // 1. Create Users
   const usersData = [
@@ -477,7 +484,7 @@ async function main() {
     ],
   });
 
-  console.log("Database seeded successfully with nostalgic items! password: password123");
+  console.log("Database seeded successfully with nostalgic items.");
 }
 
 main()
