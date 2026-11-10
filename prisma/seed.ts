@@ -156,13 +156,13 @@ async function main() {
     { userId: winamp.id, forumId: general.id, role: ForumRole.MEMBER },
     { userId: steve.id, forumId: general.id, role: ForumRole.MEMBER },
     { userId: skater.id, forumId: general.id, role: ForumRole.MEMBER },
-    
+
     // Tech
     { userId: bob.id, forumId: tech.id, role: ForumRole.OWNER },
     { userId: winamp.id, forumId: tech.id, role: ForumRole.MODERATOR },
     { userId: wizard.id, forumId: tech.id, role: ForumRole.MEMBER },
     { userId: troll.id, forumId: tech.id, role: ForumRole.MEMBER },
-    
+
     // Gaming
     { userId: bob.id, forumId: gaming.id, role: ForumRole.OWNER },
     { userId: steve.id, forumId: gaming.id, role: ForumRole.MODERATOR },
@@ -193,8 +193,8 @@ async function main() {
     {
       title: "Welcome to Retrolink! Read before posting!",
       content: "Hello everyone and welcome to Retrolink! This is a social board blending the classic, cozy feeling of phpBB/vBulletin forums with a direct, conversational community feed.\n\n" +
-               "Please check the pinned threads, upload your custom pixel-art avatars, and fill out your DMs profile. Let us know where you are from and what your very first operating system was!\n\n" +
-               "Best regards,\nBob - Administrator",
+        "Please check the pinned threads, upload your custom pixel-art avatars, and fill out your DMs profile. Let us know where you are from and what your very first operating system was!\n\n" +
+        "Best regards,\nBob - Administrator",
       type: PostType.TEXT,
       viewCount: 154,
       likeCount: 4,
@@ -206,7 +206,7 @@ async function main() {
     {
       title: "Who remembers the 'Forever Alone' rage comic? xD",
       content: "I was browsing my archive of funny pictures from 2010 and found this gems folder. Trollface, Forever Alone, Me Gusta, FFUUUU...\n" +
-               "Honestly, internet humor back then was so simple and amazing. Here is one of my favorites!",
+        "Honestly, internet humor back then was so simple and amazing. Here is one of my favorites!",
       type: PostType.IMAGE,
       mediaUrl: "https://images.unsplash.com/photo-1531747118685-ca8fa6e08806?auto=format&fit=crop&w=800&q=80", // A generic placeholder image representing nostalgic art
       viewCount: 92,
@@ -233,7 +233,7 @@ async function main() {
     {
       title: "Is Windows 7 really the peak OS? (Vista is garbage)",
       content: "I upgraded my custom desktop (Core 2 Quad, 4GB RAM, Nvidia GTS 250) from Vista to Windows 7 Home Premium yesterday.\n\n" +
-               "The Aero glass effect is much faster, boot times are halved, and the new Superbar taskbar is absolute genius. Vista was constantly hogging my RAM and hard drive. Who else has made the jump?",
+        "The Aero glass effect is much faster, boot times are halved, and the new Superbar taskbar is absolute genius. Vista was constantly hogging my RAM and hard drive. Who else has made the jump?",
       type: PostType.DISCUSSION,
       viewCount: 210,
       likeCount: 5,
@@ -271,7 +271,7 @@ async function main() {
     {
       title: "Complaining about Internet Explorer 8 (CSS bugs)",
       content: "Why does `border-radius` still not work in IE8? I'm forced to use multiple nested elements with rounded corners slices in PNG-24 with `filter: progid:DXImageTransform.Microsoft.AlphaImageLoader` to prevent ugly black borders.\n\n" +
-               "Microsoft is single-handedly holding the internet back! Here is my CSS workaround for glossy tabs...",
+        "Microsoft is single-handedly holding the internet back! Here is my CSS workaround for glossy tabs...",
       type: PostType.TEXT,
       viewCount: 75,
       likeCount: 3,
@@ -399,11 +399,11 @@ async function main() {
       { userId: skater.id, postId: welcomePost.id },
       { userId: wizard.id, postId: welcomePost.id },
       { userId: winamp.id, postId: welcomePost.id },
-      
+
       { userId: bob.id, postId: win7Post.id },
       { userId: wizard.id, postId: win7Post.id },
       { userId: skater.id, postId: win7Post.id },
-      
+
       { userId: skater.id, postId: mcPost.id },
       { userId: winamp.id, postId: mcPost.id },
     ],

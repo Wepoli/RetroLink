@@ -20,7 +20,7 @@
   --retro-muted: #666666;
   --retro-row-alt: #f4f8fb;
   --retro-row-hover: #e3effa;
-  
+
   --gloss-gradient: linear-gradient(to bottom, #105289 0%, #0a3a63 100%);
   --gloss-border: #0e4471;
   --gloss-text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
@@ -91,6 +91,7 @@ body {
   font-weight: bold;
   padding: 6px 10px;
 }
+
 .dark .glossy-header-sub {
   background: linear-gradient(to bottom, #202d3c 0%, #17212c 100%);
   color: #4a90e2;
@@ -115,9 +116,11 @@ body {
   justify-content: center;
   transition: filter 0.1s ease;
 }
+
 .retro-btn:hover {
   filter: brightness(1.08);
 }
+
 .retro-btn:active {
   box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.25);
   filter: brightness(0.95);
@@ -140,9 +143,11 @@ body {
   justify-content: center;
   transition: filter 0.1s ease;
 }
+
 .retro-btn-green:hover {
   filter: brightness(1.08);
 }
+
 .retro-btn-green:active {
   box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.25);
   filter: brightness(0.95);
@@ -164,15 +169,18 @@ body {
   align-items: center;
   justify-content: center;
 }
+
 .retro-btn-gray:hover {
   background: linear-gradient(to bottom, #f2f2f2 0%, #d9d9d9 100%);
 }
+
 .dark .retro-btn-gray {
   background: linear-gradient(to bottom, #2b3846 0%, #1c2530 100%);
   border-color: #3e5268;
   color: #e8e6e3 !important;
   box-shadow: none;
 }
+
 .dark .retro-btn-gray:hover {
   background: linear-gradient(to bottom, #324252 0%, #202b38 100%);
 }
@@ -183,9 +191,11 @@ body {
   background-color: var(--retro-panel);
   transition: background-color 0.1s ease;
 }
+
 .forum-row:nth-child(even) {
   background-color: var(--retro-row-alt);
 }
+
 .forum-row:hover {
   background-color: var(--retro-row-hover) !important;
 }
@@ -195,13 +205,16 @@ body {
   width: 8px;
   height: 8px;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--retro-bg);
 }
+
 ::-webkit-scrollbar-thumb {
   background: #a1b7cd;
   border-radius: 4px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: #105289;
 }
@@ -222,16 +235,20 @@ body {
 .badge-admin {
   background: linear-gradient(to bottom, #d9534f 0%, #c9302c 100%);
 }
+
 .badge-mod {
   background: linear-gradient(to bottom, #f0ad4e 0%, #ec971f 100%);
 }
+
 .badge-member {
   background: linear-gradient(to bottom, #5bc0de 0%, #31b0d5 100%);
 }
+
 .badge-online {
   background: linear-gradient(to bottom, #5cb85c 0%, #449d44 100%);
   font-size: 8px;
 }
+
 .badge-offline {
   background: linear-gradient(to bottom, #777777 0%, #5e5e5e 100%);
   font-size: 8px;
@@ -241,6 +258,7 @@ body {
 .comment-indent-line {
   position: relative;
 }
+
 .comment-indent-line::before {
   content: "";
   position: absolute;
@@ -277,6 +295,7 @@ body {
   border-radius: 3px;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
 }
+
 .dark .retro-avatar {
   background-color: #1b2631;
 }
@@ -355,8 +374,13 @@ body {
 }
 
 @keyframes avatarFadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes avatarSlideUp {
@@ -364,6 +388,7 @@ body {
     opacity: 0;
     transform: translateY(16px) scale(0.97);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);

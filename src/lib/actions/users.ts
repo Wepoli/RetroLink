@@ -131,3 +131,59 @@ export async function resetAvatar() {
     return { error: getErrorMessage(error, "Failed to reset avatar.") };
   }
 }
+
+export async function updateUserProfile(formData: FormData) {
+  try {
+    const currentUser = await getCurrentUser();
+    if (!currentUser) {
+      return { error: "You must be logged in to edit your profile." };
+    }
+
+    const username = formData.get("username")?.toString().trim() || "";
+    const bio = formData.get("bio")?.toString().trim() || "";
+
+    if (username.length < 3 || username.length > 20) {
+      return { error: "Username must be between 3 and 20 characters." };
+    }
+
+    if (!/^[a-zA-Z0-9_]+$/.test(username)) {
+      return { error: "Username can only contain letters, numbers, and underscores." };
+    }
+
+    if (bio.length > 500) {
+      return { error: "Bio must be 500 characters or fewer." };
+    }
+
+    const existingUser = await db.user.findFirst({
+      where: { username, NOT: { id: currentUser.id } },
+      select: { id: true },
+    });
+
+    if (existingUser) {
+      return { error: "Username is already taken." };
+    }
+
+    const updatedUser = await db.user.update({
+      where: { id: currentUser.id },
+      data: { username, bio: bio || null },
+      select: { username: true },
+    });
+
+    revalidatePath(`/profile/${currentUser.username}`);
+    revalidatePath(`/profile/${updatedUser.username}`);
+
+    return { success: true, username: updatedUser.username };
+  } catch (error) {
+    if (
+      typeof error === "object" &&
+      error !== null &&
+      "code" in error &&
+      error.code === "P2002"
+    ) {
+      return { error: "Username is already taken." };
+    }
+
+    console.error("Update profile error:", error);
+    return { error: getErrorMessage(error, "Failed to update your profile.") };
+  }
+}

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { Bell, Mail, Search, Sun, Moon, LogOut, User, FolderPlus } from "lucide-react";
+import { Bell, Mail, Search, Sun, Moon, LogOut, User, Menu, X } from "lucide-react";
 import { getUnreadNotificationCount } from "@/lib/actions/notifications";
 
 export default function Navbar() {
@@ -14,6 +14,11 @@ export default function Navbar() {
   const [searchQuery, setSearchQuery] = useState("");
   const [unreadCount, setUnreadCount] = useState(0);
   const [darkMode, setDarkMode] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [pathname]);
 
   // Poll for notification counts every 20 seconds
   useEffect(() => {
@@ -65,9 +70,9 @@ export default function Navbar() {
 
   return (
     <header className="w-full bg-[#105289] glossy-header border-b border-[#0e4471]">
-      <div className="max-w-[1100px] mx-auto flex items-center justify-between py-1.5 px-3">
+      <div className="relative max-w-[1100px] w-full mx-auto flex flex-wrap items-center justify-between gap-y-2 py-1.5 px-3">
         {/* Brand Logo */}
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-3 sm:space-x-4">
           <Link href="/" className="flex items-center space-x-1">
             <span className="text-xl font-black tracking-tight text-white font-serif drop-shadow-md">
               Retro<span className="text-amber-400">link</span>
@@ -96,9 +101,9 @@ export default function Navbar() {
         </div>
 
         {/* Action Menu */}
-        <div className="flex items-center space-x-4">
+        <div className="flex flex-wrap items-center justify-end gap-x-2 gap-y-1 sm:gap-4">
           {/* Main Links */}
-          <nav className="flex items-center space-x-3 text-xs font-bold text-white">
+          <nav className="hidden sm:flex items-center gap-2 sm:gap-3 text-xs font-bold text-white whitespace-nowrap">
             <Link href="/" className="hover:text-amber-300 transition-colors">
               Board Index
             </Link>
@@ -110,7 +115,7 @@ export default function Navbar() {
           {/* Vertical Separator */}
           <div className="w-px h-5 bg-[#337bb5] hidden sm:block"></div>
 
-          {/* Dark Mode, Notification, Messages Indicators */}
+          {/* Theme and desktop inbox shortcuts */}
           <div className="flex items-center space-x-2">
             {/* Theme Toggle */}
             <button
@@ -122,7 +127,7 @@ export default function Navbar() {
             </button>
 
             {session && (
-              <>
+              <div className="hidden sm:flex items-center space-x-2">
                 {/* Messages */}
                 <Link
                   href="/messages"
@@ -145,12 +150,12 @@ export default function Navbar() {
                     </span>
                   )}
                 </Link>
-              </>
+              </div>
             )}
           </div>
 
           {/* User profile capsule or login trigger */}
-          <div className="flex items-center space-x-2 text-xs">
+          <div className="hidden sm:flex items-center space-x-2 text-xs">
             {session ? (
               <div className="flex items-center space-x-2">
                 <div className="hidden lg:flex flex-col text-right leading-tight">
@@ -205,7 +210,84 @@ export default function Navbar() {
               </div>
             )}
           </div>
+
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen((open) => !open)}
+            aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-navigation-menu"
+            className="sm:hidden p-1.5 rounded border border-[#337bb5] text-white hover:bg-[#337bb5] cursor-pointer"
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
         </div>
+
+        {mobileMenuOpen && (
+          <div
+            id="mobile-navigation-menu"
+            className="absolute left-3 right-3 top-full z-50 sm:hidden board-container rounded overflow-hidden bg-white dark:bg-[#1b2631]"
+          >
+            <form onSubmit={handleSearchSubmit} className="flex gap-2 p-3 border-b border-slate-200 dark:border-slate-700">
+              <input
+                type="search"
+                aria-label="Search forums, posts, and users"
+                placeholder="Search..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="min-w-0 flex-1 bg-white dark:bg-[#1a2530] text-slate-800 dark:text-slate-200 text-xs px-2.5 py-2 rounded border border-slate-400 dark:border-slate-600 focus:outline-none focus:ring-1 focus:ring-[#105289] shadow-inner"
+              />
+              <button
+                type="submit"
+                aria-label="Search"
+                className="retro-btn px-3 cursor-pointer"
+              >
+                <Search className="w-4 h-4" />
+              </button>
+            </form>
+
+            <nav className="grid grid-cols-2 p-2 text-xs font-bold">
+              <Link href="/" className="flex items-center px-3 py-3 text-slate-700 dark:text-slate-200 hover:bg-[#e6eff6] dark:hover:bg-[#223141]">
+                Board Index
+              </Link>
+              <Link href="/forums" className="flex items-center px-3 py-3 text-slate-700 dark:text-slate-200 hover:bg-[#e6eff6] dark:hover:bg-[#223141]">
+                Communities
+              </Link>
+              {session ? (
+                <>
+                  <Link href={`/profile/${session.user.username}`} className="flex items-center px-3 py-3 text-slate-700 dark:text-slate-200 hover:bg-[#e6eff6] dark:hover:bg-[#223141]">
+                    My profile
+                  </Link>
+                  <Link href="/messages" className="flex items-center px-3 py-3 text-slate-700 dark:text-slate-200 hover:bg-[#e6eff6] dark:hover:bg-[#223141]">
+                    Messages
+                  </Link>
+                  <Link href="/notifications" className="flex items-center px-3 py-3 text-slate-700 dark:text-slate-200 hover:bg-[#e6eff6] dark:hover:bg-[#223141]">
+                    Notifications{unreadCount > 0 ? ` (${unreadCount})` : ""}
+                  </Link>
+                  <Link href="/forums/create" className="flex items-center px-3 py-3 text-slate-700 dark:text-slate-200 hover:bg-[#e6eff6] dark:hover:bg-[#223141]">
+                    Start Community
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => signOut({ callbackUrl: "/login" })}
+                    className="flex items-center px-3 py-3 text-left text-red-700 dark:text-red-300 hover:bg-red-50 dark:hover:bg-red-900/20 cursor-pointer"
+                  >
+                    Log out
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link href="/login" className="flex items-center px-3 py-3 text-slate-700 dark:text-slate-200 hover:bg-[#e6eff6] dark:hover:bg-[#223141]">
+                    Log in
+                  </Link>
+                  <Link href="/register" className="flex items-center px-3 py-3 text-slate-700 dark:text-slate-200 hover:bg-[#e6eff6] dark:hover:bg-[#223141]">
+                    Register
+                  </Link>
+                </>
+              )}
+            </nav>
+          </div>
+        )}
       </div>
     </header>
   );

@@ -8,6 +8,7 @@ import Link from "next/link";
 import FollowUserButton from "./FollowUserButton";
 import ProfileTabs from "./ProfileTabs";
 import AvatarUpload from "./AvatarUpload";
+import EditProfileButton from "./EditProfileButton";
 import { getCurrentUserId } from "@/lib/session";
 import { logServerError } from "@/lib/errors";
 
@@ -165,8 +166,11 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
               </div>
             </div>
 
-            {/* Follow/DM button stack */}
-            {!isSelf && (
+            {isSelf ? (
+              <div className="w-full sm:w-auto flex justify-end">
+                <EditProfileButton username={profileUser.username} bio={profileUser.bio} />
+              </div>
+            ) : (
               <div className="flex items-center space-x-2 w-full sm:w-auto justify-end">
                 <FollowUserButton targetUserId={profileUser.id} initialFollowed={isFollowing} />
                 <Link

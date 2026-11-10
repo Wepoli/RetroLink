@@ -77,7 +77,7 @@ function LoginForm() {
         <div className="glossy-header text-xs py-1.5 flex items-center">
           <Key className="w-3.5 h-3.5 mr-1" /> Log in to your Board Account
         </div>
-        
+
         <form onSubmit={handleSubmit} className="p-4 bg-white dark:bg-[#1b2631] space-y-4">
           <div className="text-xs text-slate-500 dark:text-slate-400 pb-1.5 border-b border-dashed border-slate-200 dark:border-slate-800">
             Please enter your registered username or email address and password to authenticate.

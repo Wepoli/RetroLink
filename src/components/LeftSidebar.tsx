@@ -69,7 +69,7 @@ export default function LeftSidebar() {
                 <span className="retro-badge badge-online">Online</span>
               </div>
             </div>
-            
+
             {/* Stats */}
             <div className="w-full border-t border-slate-200 dark:border-slate-700 pt-2 grid grid-cols-2 gap-1 text-[11px]">
               <div className="text-left">

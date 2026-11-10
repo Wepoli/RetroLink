@@ -54,7 +54,7 @@ export class SupabaseStorageAdapter implements StorageAdapter {
         "cache-control": "3600",
         "x-upsert": "true",
       },
-      body: new Blob([buffer], { type: contentType }),
+      body: new Blob([Uint8Array.from(buffer)], { type: contentType }),
     });
 
     if (!response.ok) {
@@ -90,10 +90,22 @@ export class SupabaseStorageAdapter implements StorageAdapter {
 
     if (!response.ok && response.status !== 404) {
       const message = await response.text();
-      throw new Error(
-        `Supabase delete failed (${response.status}): ${message || response.statusText
-        }`
-      );
+      let isMissingObject = false;
+
+      try {
+        const error = JSON.parse(message);
+        isMissingObject =
+          error.code === "NoSuchKey" || String(error.statusCode) === "404";
+      } catch {
+        isMissingObject = false;
+      }
+
+      if (!isMissingObject) {
+        throw new Error(
+          `Supabase delete failed (${response.status}): ${message || response.statusText
+          }`
+        );
+      }
     }
   }
 }
